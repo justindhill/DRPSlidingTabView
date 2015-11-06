@@ -1,7 +1,9 @@
 # DRPSlidingTabView [![Version](https://img.shields.io/cocoapods/v/DRPSlidingTabView.svg?style=flat)](http://cocoapods.org/pods/DRPSlidingTabView) [![License](https://img.shields.io/cocoapods/l/DRPSlidingTabView.svg?style=flat)](http://cocoapods.org/pods/DRPSlidingTabView) [![Platform](https://img.shields.io/cocoapods/p/DRPSlidingTabView.svg?style=flat)](http://cocoapods.org/pods/DRPSlidingTabView)
 ### A highly-configurable tab view for iOS with a slider that tweens between tabs as you swipe.
 
-<img src="http://zippy.gfycat.com/GroundedAromaticDogwoodtwigborer.gif" width="320"/>
+<p align="center">
+  <img src="http://zippy.gfycat.com/GroundedAromaticDogwoodtwigborer.gif" width="320"/>
+</p>
 
 #### Configurable things include:
 * Animation curve of the transition
