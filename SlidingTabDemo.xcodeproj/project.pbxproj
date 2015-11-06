@@ -13,6 +13,7 @@
 		D01F9BFB1BED1CB3005B2ED0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D01F9BF91BED1CB3005B2ED0 /* Main.storyboard */; };
 		D01F9BFD1BED1CB3005B2ED0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D01F9BFC1BED1CB3005B2ED0 /* Assets.xcassets */; };
 		D01F9C001BED1CB3005B2ED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D01F9BFE1BED1CB3005B2ED0 /* LaunchScreen.storyboard */; };
+		D01F9C0A1BED1D47005B2ED0 /* DRPSlidingTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = D01F9C091BED1D47005B2ED0 /* DRPSlidingTabView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		D01F9BFC1BED1CB3005B2ED0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D01F9BFF1BED1CB3005B2ED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D01F9C011BED1CB3005B2ED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D01F9C081BED1D47005B2ED0 /* DRPSlidingTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRPSlidingTabView.h; sourceTree = "<group>"; };
+		D01F9C091BED1D47005B2ED0 /* DRPSlidingTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRPSlidingTabView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				D01F9BEF1BED1CB3005B2ED0 /* SlidingTabDemo */,
+				D01F9C071BED1D47005B2ED0 /* DRPSlidingTabView */,
 				D01F9BEE1BED1CB3005B2ED0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,6 +81,15 @@
 				D01F9BF11BED1CB3005B2ED0 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D01F9C071BED1D47005B2ED0 /* DRPSlidingTabView */ = {
+			isa = PBXGroup;
+			children = (
+				D01F9C081BED1D47005B2ED0 /* DRPSlidingTabView.h */,
+				D01F9C091BED1D47005B2ED0 /* DRPSlidingTabView.m */,
+			);
+			path = DRPSlidingTabView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D01F9C0A1BED1D47005B2ED0 /* DRPSlidingTabView.m in Sources */,
 				D01F9BF81BED1CB3005B2ED0 /* ViewController.m in Sources */,
 				D01F9BF51BED1CB3005B2ED0 /* AppDelegate.m in Sources */,
 				D01F9BF21BED1CB3005B2ED0 /* main.m in Sources */,
