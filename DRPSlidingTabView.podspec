@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE.md" }
 
   s.author             = { "Justin Hill" => "jhill.d@gmail.com" }
-  s.source       = { :git => "http://github.com/justindhill/DRPSlidingTabView.git", :tag => "0.0.1" }
+  s.source       = { :git => "http://github.com/justindhill/DRPSlidingTabView.git", :tag => "0.0.2" }
 
   s.source_files  = "DRPSlidingTabView/*.{h,m}"
 
