@@ -9,6 +9,8 @@
 * Animation curve of the transition
 * Height of the slider
 * Height of the tab container
+* Background color of the tab container
+* Background color of the content area
 * Color of title text
 * Font of title text
 * Color of the divider/slider

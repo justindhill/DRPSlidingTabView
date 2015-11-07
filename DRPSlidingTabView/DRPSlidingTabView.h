@@ -21,6 +21,16 @@
 @property (assign) UIViewAnimationCurve transitionAnimationCurve;
 
 /**
+ *  @brief The background color of the content view (the page container)
+ */
+@property (nonatomic, strong) UIColor *contentBackgroundColor;
+
+/**
+ *  @brief The background color of the tab container
+ */
+@property (nonatomic, strong) UIColor *tabContainerBackgroundColor;
+
+/**
  *  @brief The height of the slider.
  */
 @property (nonatomic, assign) CGFloat sliderHeight;

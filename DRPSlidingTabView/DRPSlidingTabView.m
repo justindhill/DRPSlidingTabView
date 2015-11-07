@@ -31,6 +31,11 @@
         self.contentView = [[UIScrollView alloc] init];
         self.contentView.pagingEnabled = YES;
         self.contentView.delegate = self;
+        self.contentView.showsHorizontalScrollIndicator = NO;
+        self.contentView.showsVerticalScrollIndicator = NO;
+        
+        self.tabContainerBackgroundColor = [UIColor clearColor];
+        self.contentBackgroundColor = [UIColor clearColor];
         
         self.pages = [NSMutableArray array];
         self.titleButtons = [NSMutableArray array];
@@ -53,6 +58,16 @@
 }
 
 #pragma mark - Accessors
+- (void)setContentBackgroundColor:(UIColor *)contentBackgroundColor {
+    _contentBackgroundColor = contentBackgroundColor;
+    self.contentView.backgroundColor = contentBackgroundColor;
+}
+
+- (void)setTabContainerBackgroundColor:(UIColor *)tabContainerBackgroundColor {
+    _tabContainerBackgroundColor = tabContainerBackgroundColor;
+    self.tabContainer.backgroundColor = tabContainerBackgroundColor;
+}
+
 - (void)setSliderHeight:(CGFloat)sliderHeight {
     _sliderHeight = sliderHeight;
     [self setNeedsLayout];
