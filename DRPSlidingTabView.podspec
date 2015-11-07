@@ -17,13 +17,14 @@ Pod::Spec.new do |s|
   	in the YouTube app.
   DESC
 
-  s.homepage     = "http://github.com/justindhill/DRPSlidingTabView"
+  s.homepage     = "https://github.com/justindhill/DRPSlidingTabView"
   s.screenshots  = "http://zippy.gfycat.com/GroundedAromaticDogwoodtwigborer.gif"
 
   s.license      = { :type => "MIT", :file => "LICENSE.md" }
 
-  s.author             = { "Justin Hill" => "jhill.d@gmail.com" }
-  s.source       = { :git => "http://github.com/justindhill/DRPSlidingTabView.git", :tag => "0.0.2" }
+  s.author       = { "Justin Hill" => "jhill.d@gmail.com" }
+  s.source       = { :git => "https://github.com/justindhill/DRPSlidingTabView.git", :tag => "0.0.2" }
+  s.platform     = :ios
 
   s.source_files  = "DRPSlidingTabView/*.{h,m}"
 
