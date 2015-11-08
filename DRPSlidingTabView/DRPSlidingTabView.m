@@ -20,44 +20,95 @@
 @property UIView *slider;
 
 @property BOOL isFirstLayout;
+@property NSInteger lastSelectedPageIndex;
 
 @end
 
 @implementation DRPSlidingTabView
 
-- (instancetype)init {
-    if (self = [super init]) {
-        self.tabContainer = [[UIView alloc] init];
-        self.contentView = [[UIScrollView alloc] init];
-        self.contentView.pagingEnabled = YES;
-        self.contentView.delegate = self;
-        self.contentView.showsHorizontalScrollIndicator = NO;
-        self.contentView.showsVerticalScrollIndicator = NO;
-        
-        self.tabContainerBackgroundColor = [UIColor clearColor];
-        self.contentBackgroundColor = [UIColor clearColor];
-        
-        self.pages = [NSMutableArray array];
-        self.titleButtons = [NSMutableArray array];
-        
-        self.divider = [[UIView alloc] init];
-        self.slider = [[UIView alloc] init];
-        
-        self.dividerColor = [UIColor lightGrayColor];
-        self.titleColor = [UIColor lightGrayColor];
-        
-        self.titleFont = [UIFont systemFontOfSize:16];
-        self.sliderHeight = 2.;
-        self.tabContainerHeight = 44.;
-        self.transitionAnimationCurve = UIViewAnimationCurveEaseOut;
-        self.transitionDuration = .25;
-        self.isFirstLayout = YES;
+#pragma mark - Life cycle
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setup];
     }
     
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self setup];
+    }
+    
+    return self;
+}
+
+- (void)setup {
+    self.tabContainer = [[UIView alloc] init];
+        
+    // initial bounds' height is incorrect, but we need the width to be correct
+    // for page calculation. this will be fixed on first layout.
+    self.contentView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    self.contentView.pagingEnabled = YES;
+    self.contentView.delegate = self;
+    self.contentView.showsHorizontalScrollIndicator = NO;
+    self.contentView.showsVerticalScrollIndicator = NO;
+    
+    self.tabContainerBackgroundColor = [UIColor clearColor];
+    self.contentBackgroundColor = [UIColor clearColor];
+    
+    self.pages = [NSMutableArray array];
+    self.titleButtons = [NSMutableArray array];
+    
+    self.divider = [[UIView alloc] init];
+    self.slider = [[UIView alloc] init];
+    
+    self.dividerColor = [UIColor lightGrayColor];
+    self.titleColor = [UIColor lightGrayColor];
+    
+    self.titleFont = [UIFont systemFontOfSize:16];
+    self.sliderHeight = 2.;
+    self.tabContainerHeight = 44.;
+    self.transitionAnimationCurve = UIViewAnimationCurveEaseOut;
+    self.transitionDuration = .25;
+    
+    self.isFirstLayout = YES;
+    self.lastSelectedPageIndex = 0;
+    self.defaultHeight = 150.;
+}
+
+- (void)tintColorDidChange {
+    [self.titleButtons[self.selectedPageIndex] setTitleColor:self.tintColor forState:UIControlStateNormal];
+}
+
 #pragma mark - Accessors
+- (NSInteger)selectedPageIndex {
+    NSInteger gapIndex = (NSInteger)(self.contentView.contentOffset.x / self.contentView.frame.size.width);
+    CGFloat percentGapTraversed = fmodf(self.contentView.contentOffset.x, self.contentView.frame.size.width) / self.contentView.frame.size.width;
+    
+    if (self.pages.count == 0) {
+        return NSNotFound;
+        
+    } else if (self.isFirstLayout) {
+        return 0;
+    
+    } else if (gapIndex == 0 && percentGapTraversed < 0) {
+        return 0;
+        
+    } else if (gapIndex >= self.pages.count - 1) {
+        return self.pages.count - 1;
+        
+    } else {
+        
+        if (percentGapTraversed >= .5) {
+            return gapIndex + 1;
+            
+        } else {
+            return gapIndex;
+        }
+    }
+}
+
 - (void)setContentBackgroundColor:(UIColor *)contentBackgroundColor {
     _contentBackgroundColor = contentBackgroundColor;
     self.contentView.backgroundColor = contentBackgroundColor;
@@ -104,7 +155,10 @@
 
 #pragma mark - Page management
 - (void)addPage:(UIView *)page withTitle:(NSString *)title {
-    UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    NSAssert(page, @"Attempted to add a nil page to DRPSlidingTabView");
+    NSAssert(title, @"Attempted to add a page with nil title to DRPSlidingTabView");
+    
+    UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [titleButton setTitle:title forState:UIControlStateNormal];
     [titleButton setTitleColor:self.titleColor forState:UIControlStateNormal];
     [titleButton.titleLabel setFont:self.titleFont];
@@ -115,6 +169,10 @@
     
     [self.contentView addSubview:page];
     [self.pages addObject:page];
+    
+    if (self.pages.count == 1) {
+        [self updateIntrinsicHeightWithPageIndex:0];
+    }
     
     [self setNeedsLayout];
 }
@@ -198,7 +256,11 @@
 }
 
 - (void)layoutPages {
-    self.contentView.contentSize = CGSizeMake(self.frame.size.width * self.pages.count, self.contentView.frame.size.height);
+    if (self.pages.count == 0) {
+        return;
+    }
+    
+    [self updateIntrinsicHeightWithPageIndex:self.selectedPageIndex];
     
     [self.pages enumerateObjectsUsingBlock:^(UIView * _Nonnull page, NSUInteger idx, BOOL * _Nonnull stop) {
         if (!page.superview) {
@@ -206,7 +268,32 @@
         }
         
         page.frame = (CGRect){{self.contentView.frame.size.width * idx, 0}, self.contentView.frame.size};
+        [page layoutSubviews];
     }];
+}
+
+- (void)updateIntrinsicHeightWithPageIndex:(NSInteger)pageIndex {
+    UIView *selectedPage = self.pages[pageIndex];
+    
+    CGFloat newHeight;
+    CGFloat currentHeight = self.contentView.contentSize.height;
+    
+    if ([selectedPage respondsToSelector:@selector(intrinsicHeightWithWidth:)]) {
+        id<DRPIntrinsicHeightChangeEmitter> emitter = (id<DRPIntrinsicHeightChangeEmitter>)selectedPage;
+        newHeight = [emitter intrinsicHeightWithWidth:self.frame.size.width];
+    } else {
+        newHeight = self.defaultHeight;
+    }
+    
+    self.contentView.contentSize = CGSizeMake(self.frame.size.width * self.pages.count, newHeight);
+    
+    if (newHeight != currentHeight) {
+        self.intrinsicHeight = newHeight;
+        
+        if (!self.isFirstLayout) {
+            [self.delegate view:self intrinsicHeightDidChangeTo:self.tabContainer.frame.size.height + newHeight];
+        }
+    }
 }
 
 #pragma mark - Button actions
@@ -227,6 +314,26 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self positionSlider];
+    
+    NSInteger selectedPageIndex = self.selectedPageIndex;
+    if (selectedPageIndex != self.lastSelectedPageIndex) {
+        [self.titleButtons[self.lastSelectedPageIndex] setTitleColor:self.titleColor forState:UIControlStateNormal];
+        [self.titleButtons[selectedPageIndex] setTitleColor:self.tintColor forState:UIControlStateNormal];
+        self.lastSelectedPageIndex = selectedPageIndex;
+        
+        if ([self.delegate respondsToSelector:@selector(slidingTabView:selectedPageIndexDidChange:)]) {
+            [self.delegate slidingTabView:self selectedPageIndexDidChange:selectedPageIndex];
+        }
+        
+        [self updateIntrinsicHeightWithPageIndex:selectedPageIndex];
+    }
+}
+
+#pragma mark - Intrinsic content height listener
+- (void)view:(UIView *)view intrinsicHeightDidChangeTo:(CGFloat)newHeight {
+    if ([self.pages indexOfObject:view] == self.selectedPageIndex) {
+        [self updateIntrinsicHeightWithPageIndex:self.selectedPageIndex];
+    }
 }
 
 @end
