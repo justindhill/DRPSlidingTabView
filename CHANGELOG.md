@@ -1,5 +1,9 @@
 ## Changelog
 
+#### 0.1.2
+- Fixed a crash that could occur when adding a page if the view's frame was CGRectZero
+- Fixed initial tint color state of first tab added
+
 #### 0.1.1
 - Layout fixes
 
