@@ -109,6 +109,18 @@
     }
 }
 
+- (CGFloat)intrinsicHeight {
+    UIView *page = self.pages[self.selectedPageIndex];
+    
+    if ([page conformsToProtocol:@protocol(DRPIntrinsicHeightChangeEmitter)]) {
+        id<DRPIntrinsicHeightChangeEmitter> emitter = (id<DRPIntrinsicHeightChangeEmitter>)page;
+        
+        return [emitter intrinsicHeightWithWidth:self.frame.size.width] + self.tabContainer.frame.size.height;
+    } else {
+        return self.defaultHeight;
+    }
+}
+
 - (void)setContentBackgroundColor:(UIColor *)contentBackgroundColor {
     _contentBackgroundColor = contentBackgroundColor;
     self.contentView.backgroundColor = contentBackgroundColor;
@@ -167,14 +179,15 @@
     [self.titleButtons addObject:titleButton];
     [self.tabContainer addSubview:titleButton];
     
+    if ([page conformsToProtocol:@protocol(DRPIntrinsicHeightChangeEmitter)]) {
+        id<DRPIntrinsicHeightChangeEmitter> emitter = (id<DRPIntrinsicHeightChangeEmitter>)page;
+        emitter.heightChangeListener = self;
+    }
+    
     [self.contentView addSubview:page];
     [self.pages addObject:page];
     
-    if (self.pages.count == 1) {
-        [self updateIntrinsicHeightWithPageIndex:0];
-    }
-    
-    [self setNeedsLayout];
+    [self layoutSubviews];
 }
 
 #pragma mark - Layout
@@ -260,7 +273,7 @@
         return;
     }
     
-    [self updateIntrinsicHeightWithPageIndex:self.selectedPageIndex];
+    self.contentView.contentSize = CGSizeMake(self.frame.size.width * self.pages.count, self.intrinsicHeight - self.tabContainer.frame.size.height);
     
     [self.pages enumerateObjectsUsingBlock:^(UIView * _Nonnull page, NSUInteger idx, BOOL * _Nonnull stop) {
         if (!page.superview) {
@@ -270,30 +283,6 @@
         page.frame = (CGRect){{self.contentView.frame.size.width * idx, 0}, self.contentView.frame.size};
         [page layoutSubviews];
     }];
-}
-
-- (void)updateIntrinsicHeightWithPageIndex:(NSInteger)pageIndex {
-    UIView *selectedPage = self.pages[pageIndex];
-    
-    CGFloat newHeight;
-    CGFloat currentHeight = self.contentView.contentSize.height;
-    
-    if ([selectedPage respondsToSelector:@selector(intrinsicHeightWithWidth:)]) {
-        id<DRPIntrinsicHeightChangeEmitter> emitter = (id<DRPIntrinsicHeightChangeEmitter>)selectedPage;
-        newHeight = [emitter intrinsicHeightWithWidth:self.frame.size.width];
-    } else {
-        newHeight = self.defaultHeight;
-    }
-    
-    self.contentView.contentSize = CGSizeMake(self.frame.size.width * self.pages.count, newHeight);
-    
-    if (newHeight != currentHeight) {
-        self.intrinsicHeight = newHeight;
-        
-        if (!self.isFirstLayout) {
-            [self.delegate view:self intrinsicHeightDidChangeTo:self.tabContainer.frame.size.height + newHeight];
-        }
-    }
 }
 
 #pragma mark - Button actions
@@ -325,14 +314,16 @@
             [self.delegate slidingTabView:self selectedPageIndexDidChange:selectedPageIndex];
         }
         
-        [self updateIntrinsicHeightWithPageIndex:selectedPageIndex];
+        [self.delegate view:self intrinsicHeightDidChangeTo:self.intrinsicHeight];
     }
 }
 
 #pragma mark - Intrinsic content height listener
 - (void)view:(UIView *)view intrinsicHeightDidChangeTo:(CGFloat)newHeight {
     if ([self.pages indexOfObject:view] == self.selectedPageIndex) {
-        [self updateIntrinsicHeightWithPageIndex:self.selectedPageIndex];
+        if (!self.isFirstLayout) {
+            [self.delegate view:self intrinsicHeightDidChangeTo:self.intrinsicHeight];
+        }
     }
 }
 

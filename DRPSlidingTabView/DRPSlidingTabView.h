@@ -76,7 +76,7 @@
  *  @brief The intrinsic height of the tab view. This is dependent on what the current page is. If the
  *         current page returns CGSizeZero from sizeThatFits:, returns defaultHeight.
  */
-@property CGFloat intrinsicHeight;
+@property (readonly) CGFloat intrinsicHeight;
 
 /**
  *  @brief The index of the selected page
