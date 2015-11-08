@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DRPSlidingTabView"
-  s.version      = "0.1.1"
+  s.version      = "0.1.2"
   s.summary      = "A highly-configurable tab view with a slider that tweens between tabs as you swipe."
 
   s.description  = <<-DESC
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE.md" }
 
   s.author       = { "Justin Hill" => "jhill.d@gmail.com" }
-  s.source       = { :git => "https://github.com/justindhill/DRPSlidingTabView.git", :tag => "0.1.1" }
+  s.source       = { :git => "https://github.com/justindhill/DRPSlidingTabView.git", :tag => "0.1.2" }
   s.platform     = :ios, "8.0"
 
   s.source_files  = "DRPSlidingTabView/*.{h,m}"
