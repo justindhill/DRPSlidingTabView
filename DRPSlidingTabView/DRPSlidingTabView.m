@@ -172,7 +172,7 @@
     
     UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [titleButton setTitle:title forState:UIControlStateNormal];
-    [titleButton setTitleColor:self.titleColor forState:UIControlStateNormal];
+    [titleButton setTitleColor:self.pages.count ? self.titleColor : self.tintColor forState:UIControlStateNormal];
     [titleButton.titleLabel setFont:self.titleFont];
     [titleButton addTarget:self action:@selector(tabButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -187,7 +187,9 @@
     [self.contentView addSubview:page];
     [self.pages addObject:page];
     
-    [self layoutSubviews];
+    if (!CGRectEqualToRect(self.frame, CGRectZero)) {
+        [self layoutSubviews];
+    }
 }
 
 #pragma mark - Layout
