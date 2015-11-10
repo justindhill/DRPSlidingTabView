@@ -54,9 +54,9 @@
     self.contentView.delegate = self;
     self.contentView.showsHorizontalScrollIndicator = NO;
     self.contentView.showsVerticalScrollIndicator = NO;
+    self.contentView.clipsToBounds = NO;
     
-    self.tabContainerBackgroundColor = [UIColor clearColor];
-    self.contentBackgroundColor = [UIColor clearColor];
+    self.tabContainerBackgroundColor = [UIColor whiteColor];
     
     self.pages = [NSMutableArray array];
     self.titleButtons = [NSMutableArray array];
@@ -120,11 +120,6 @@
     } else {
         return self.defaultHeight;
     }
-}
-
-- (void)setContentBackgroundColor:(UIColor *)contentBackgroundColor {
-    _contentBackgroundColor = contentBackgroundColor;
-    self.contentView.backgroundColor = contentBackgroundColor;
 }
 
 - (void)setTabContainerBackgroundColor:(UIColor *)tabContainerBackgroundColor {
@@ -344,6 +339,17 @@
             [self.delegate view:self intrinsicHeightDidChangeTo:self.intrinsicHeight];
         }
     }
+}
+
+#pragma mark - Deprecated
+- (UIColor *)contentBackgroundColor {
+    NSAssert(NO, @"contentBackgroundColor is deprecated. Use backgroundColor instead.");
+    
+    return nil;
+}
+
+- (void)setContentBackgroundColor:(UIColor *)contentBackgroundColor {
+    NSAssert(NO, @"contentBackgroundColor is deprecated. Use backgroundColor instead.");
 }
 
 @end

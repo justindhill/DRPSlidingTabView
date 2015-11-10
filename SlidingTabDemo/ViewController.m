@@ -22,24 +22,21 @@
     [super viewDidLoad];
     
     self.tabbedContentView = [[DRPSlidingTabView alloc] init];
-    self.tabbedContentView.contentBackgroundColor = [UIColor lightGrayColor];
+    self.tabbedContentView.backgroundColor = [UIColor lightGrayColor];
     self.tabbedContentView.delegate = self;
     
     [self.view addSubview:self.tabbedContentView];
     
     TextTabView *view1 = [[TextTabView alloc] init];
-    view1.backgroundColor = [UIColor lightGrayColor];
     view1.textLabel.text = @"Williamsburg distillery freegan cliche yuccie. Before they sold out roof party church-key truffaut echo park. Ennui paleo ugh vinyl. Pop-up photo booth sartorial scenester echo park, wolf brooklyn mumblecore venmo YOLO. Tousled photo booth chillwave fixie church-key selfies helvetica, ennui pug. Salvia mumblecore listicle, cardigan cronut austin 3 wolf moon quinoa VHS authentic tote bag normcore pop-up taxidermy. Cliche jean shorts hammock swag.";
     [self.tabbedContentView addPage:view1 withTitle:@"ABOUT"];
     
     TextTabView *view2 = [[TextTabView alloc] init];
-    view2.backgroundColor = [UIColor lightGrayColor];
-    view2.textLabel.text = @"Williamsburg distillery freegan cliche yuccie. Chillwave fixie church-key selfies helvetica, ennui pug. Salvia mumblecore listicle, cardigan cronut austin 3 wolf moon quinoa VHS authentic tote bag normcore pop-up taxidermy. Cliche jean shorts hammock swag.";
+    view2.textLabel.text = @"Venmo typewriter offal salvia, butcher four loko letterpress slow-carb messenger bag. Marfa PBR&B vice tacos small batch celiac, organic readymade. Pabst before they sold out 90's fashion axe, irony banjo pork belly shabby chic kale chips salvia. Franzen bicycle rights microdosing plaid helvetica, roof party XOXO. Vinyl fashion axe semiotics, keytar intelligentsia farm-to-table williamsburg slow-carb sriracha bushwick flannel. Normcore seitan blue bottle lomo, irony fingerstache chambray pabst PBR&B readymade thundercats fap fixie kitsch vice. Typewriter bespoke seitan ennui 3 wolf moon retro, mustache forage vinyl waistcoat listicle bushwick hammock synth.\n\nAsymmetrical craft beer marfa gastropub art party flannel polaroid tumblr pickled. Mlkshk street art literally crucifix, quinoa wayfarers selfies fashion axe bushwick single-origin coffee asymmetrical keffiyeh beard migas VHS. Green juice try-hard portland, crucifix next level aesthetic seitan viral tousled lomo pug wayfarers 3 wolf moon synth. Kombucha meggings banh mi normcore, raw denim schlitz authentic master cleanse.";
     [self.tabbedContentView addPage:view2 withTitle:@"SCHEDULE"];
     
     TextTabView *view3 = [[TextTabView alloc] init];
-    view3.backgroundColor = [UIColor lightGrayColor];
-    view3.textLabel.text = @"Williamsburg distillery freegan cliche yuccie. Before they sold out roof party church-key truffaut echo park. Ennui paleo ugh vinyl. Pop-up photo booth sartorial scenester echo park, wolf brooklyn mumblecore venmo YOLO. Tousled photo booth chillwave fixie church-key selfies helvetica, ennui pug. Salvia mumblecore listicle, cardigan cronut austin 3 wolf moon quinoa VHS authentic tote bag normcore pop-up taxidermy. Cliche jean shorts hammock swag.";
+    view3.textLabel.text = @"Trust fund williamsburg roof party, vice bespoke humblebrag stumptown pork belly mixtape direct trade thundercats keytar church-key. Selvage cred food truck chartreuse organic typewriter. Plaid cray selvage dreamcatcher, next level knausgaard marfa umami YOLO PBR&B synth neutra crucifix.";
     [self.tabbedContentView addPage:view3 withTitle:@"RELATED"];
 }
 

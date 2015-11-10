@@ -94,12 +94,7 @@
 @property (assign) UIViewAnimationCurve transitionAnimationCurve;
 
 /**
- *  @brief The background color of the content view (the page container)
- */
-@property (nonatomic, strong) UIColor *contentBackgroundColor;
-
-/**
- *  @brief The background color of the tab container
+ *  @brief The background color of the tab container. Default is UIColor.whiteColor.
  */
 @property (nonatomic, strong) UIColor *tabContainerBackgroundColor;
 
@@ -132,5 +127,12 @@
  *  @brief Add a page to the tabbed content view.
  */
 - (void)addPage:(UIView *)page withTitle:(NSString *)title;
+
+#pragma mark - Deprecated
+/**
+ *  @brief The background color of the content view (the page container)
+ *  @deprecated contentBackgroundColor is deprecated. Use backgroundColor instead.
+ */
+@property (nonatomic, strong) UIColor *contentBackgroundColor __deprecated_msg("Use 'backgroundColor' instead.");
 
 @end

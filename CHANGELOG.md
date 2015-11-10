@@ -1,5 +1,11 @@
 ## Changelog
 
+#### 0.2.0
+- Deprecated contentBackgroundColor. You should use backgroundColor now.
+- Default tabContainerBackgroundColor changed to UIColor.whiteColor
+- Page content view no longer clips to bounds. This makes DRPSlidingTabView much more animation-friendly.
+- Updated the sample app to reflect these changes
+
 #### 0.1.3
 - Added text example pages to sample app
 - Added a call to [super layoutSubviews]

@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   DESC
 
   s.homepage     = "https://github.com/justindhill/DRPSlidingTabView"
-  s.screenshots  = "http://zippy.gfycat.com/GroundedAromaticDogwoodtwigborer.gif"
+  s.screenshots  = "http://giant.gfycat.com/SecondWhoppingGoitered.gif"
 
   s.license      = { :type => "MIT", :file => "LICENSE.md" }
 
