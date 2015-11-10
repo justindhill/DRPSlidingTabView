@@ -44,6 +44,7 @@
 }
 
 - (void)setup {
+    self.clipsToBounds = YES;
     self.tabContainer = [[UIView alloc] init];
         
     // initial bounds' height is incorrect, but we need the width to be correct
@@ -194,6 +195,7 @@
 
 #pragma mark - Layout
 - (void)layoutSubviews {
+    [super layoutSubviews];
     
     if (self.isFirstLayout) {
         [self addSubview:self.tabContainer];
@@ -282,9 +284,24 @@
             [self.contentView addSubview:page];
         }
         
-        page.frame = (CGRect){{self.contentView.frame.size.width * idx, 0}, self.contentView.frame.size};
+        CGFloat pageHeight;
+        if ([page conformsToProtocol:@protocol(DRPIntrinsicHeightChangeEmitter)]) {
+            id<DRPIntrinsicHeightChangeEmitter> emitter = (id<DRPIntrinsicHeightChangeEmitter>)page;
+            pageHeight = [emitter intrinsicHeightWithWidth:self.contentView.frame.size.width];
+            
+        } else {
+            pageHeight = self.defaultHeight;
+        }
+        
+        page.frame = (CGRect){{self.contentView.frame.size.width * idx, 0}, {self.contentView.frame.size.width, pageHeight}};
+        
         [page layoutSubviews];
     }];
+}
+
+- (void)sizeToFit {
+    [self layoutSubviews];
+    self.frame = (CGRect){self.frame.origin, {self.frame.size.width, self.intrinsicHeight}};
 }
 
 #pragma mark - Button actions

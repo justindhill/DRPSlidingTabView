@@ -14,6 +14,7 @@
 		D01F9BFD1BED1CB3005B2ED0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D01F9BFC1BED1CB3005B2ED0 /* Assets.xcassets */; };
 		D01F9C001BED1CB3005B2ED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D01F9BFE1BED1CB3005B2ED0 /* LaunchScreen.storyboard */; };
 		D01F9C0A1BED1D47005B2ED0 /* DRPSlidingTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = D01F9C091BED1D47005B2ED0 /* DRPSlidingTabView.m */; };
+		D0292D5F1BF1DA4800F717F2 /* TextTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0292D5E1BF1DA4800F717F2 /* TextTabView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		D01F9C011BED1CB3005B2ED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D01F9C081BED1D47005B2ED0 /* DRPSlidingTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRPSlidingTabView.h; sourceTree = "<group>"; };
 		D01F9C091BED1D47005B2ED0 /* DRPSlidingTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRPSlidingTabView.m; sourceTree = "<group>"; };
+		D0292D5D1BF1DA4800F717F2 /* TextTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextTabView.h; sourceTree = "<group>"; };
+		D0292D5E1BF1DA4800F717F2 /* TextTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextTabView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,8 @@
 			children = (
 				D01F9BF31BED1CB3005B2ED0 /* AppDelegate.h */,
 				D01F9BF41BED1CB3005B2ED0 /* AppDelegate.m */,
+				D0292D5D1BF1DA4800F717F2 /* TextTabView.h */,
+				D0292D5E1BF1DA4800F717F2 /* TextTabView.m */,
 				D01F9BF61BED1CB3005B2ED0 /* ViewController.h */,
 				D01F9BF71BED1CB3005B2ED0 /* ViewController.m */,
 				D01F9BF91BED1CB3005B2ED0 /* Main.storyboard */,
@@ -162,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0292D5F1BF1DA4800F717F2 /* TextTabView.m in Sources */,
 				D01F9C0A1BED1D47005B2ED0 /* DRPSlidingTabView.m in Sources */,
 				D01F9BF81BED1CB3005B2ED0 /* ViewController.m in Sources */,
 				D01F9BF51BED1CB3005B2ED0 /* AppDelegate.m in Sources */,
