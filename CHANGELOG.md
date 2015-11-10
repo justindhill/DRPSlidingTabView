@@ -1,5 +1,12 @@
 ## Changelog
 
+#### 0.1.3
+- Added text example pages to sample app
+- Added a call to [super layoutSubviews]
+- Tab view clips to bounds by default now to make it a little more animation-friendly
+- Added sizeToFit implementation. Add some pages, set a width, and the tab view will size itself when sizeToFit is called
+- Pages are no longer resized to fill the entire content height of the tab view's containing scroll view. This wasn't necessary and could cause some weird state for pages with custom size if they were the first page.
+
 #### 0.1.2
 - Fixed a crash that could occur when adding a page if the view's frame was CGRectZero
 - Fixed initial tint color state of first tab added
