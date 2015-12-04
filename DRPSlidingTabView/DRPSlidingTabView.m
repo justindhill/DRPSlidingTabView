@@ -231,7 +231,7 @@
         CGFloat xOffset = previousLabel.frame.origin.x + previousLabel.frame.size.width + buttonSpacing;
         CGFloat height = self.tabContainer.frame.size.height - self.sliderHeight - 2.;
         
-        titleButton.frame = CGRectMake(xOffset, 0, titleButton.frame.size.width, height);
+        titleButton.frame = CGRectMake(ceilf(xOffset), 0, titleButton.frame.size.width, height);
         
         previousLabel = titleButton;
     }
@@ -246,13 +246,13 @@
     
     if (gapIndex == 0 && percentGapTraversed < 0.) {
         // Beyond left endcap
-        self.slider.frame = (CGRect){{leftOfGap.frame.origin.x, self.divider.frame.origin.y - self.sliderHeight},
+        self.slider.frame = (CGRect){{ceilf(leftOfGap.frame.origin.x), ceilf(self.divider.frame.origin.y - self.sliderHeight)},
                                      {leftOfGap.frame.size.width, self.sliderHeight}};
         return;
         
     } else if (gapIndex >= self.pages.count - 1) {
         // Special case for when we're EXACTLY on the far-right end
-        self.slider.frame = (CGRect){{self.titleButtons.lastObject.frame.origin.x, self.divider.frame.origin.y - self.sliderHeight},
+        self.slider.frame = (CGRect){{ceilf(self.titleButtons.lastObject.frame.origin.x), ceilf(self.divider.frame.origin.y - self.sliderHeight)},
                                      {self.titleButtons.lastObject.frame.size.width, self.sliderHeight}};
         
         return;
@@ -263,7 +263,7 @@
     CGFloat originOffset = (rightOfGap.frame.origin.x - leftOfGap.frame.origin.x) * percentGapTraversed;
     CGFloat widthDifference = (rightOfGap.frame.size.width - leftOfGap.frame.size.width) * percentGapTraversed;
     
-    self.slider.frame = (CGRect){{leftOfGap.frame.origin.x + originOffset, self.divider.frame.origin.y - self.sliderHeight},
+    self.slider.frame = (CGRect){{ceilf(leftOfGap.frame.origin.x + originOffset), ceilf(self.divider.frame.origin.y - self.sliderHeight)},
                                  {leftOfGap.frame.size.width + widthDifference, self.sliderHeight}};
 }
 
