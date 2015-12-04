@@ -1,5 +1,8 @@
 ## Changelog
 
+#### 0.2.1
+- Make sure origins of resting frames for the slider and title buttons sit on point boundaries
+
 #### 0.2.0
 - Deprecated contentBackgroundColor. You should use backgroundColor now.
 - Default tabContainerBackgroundColor changed to UIColor.whiteColor
