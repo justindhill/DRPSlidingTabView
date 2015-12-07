@@ -1,5 +1,8 @@
 ## Changelog
 
+#### 0.2.2
+- Fixed podspec pointing at the wrong git tag
+
 #### 0.2.1
 - Make sure origins of resting frames for the slider and title buttons sit on point boundaries
 
